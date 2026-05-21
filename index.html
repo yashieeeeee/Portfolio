@@ -70,6 +70,7 @@ nav {
 .mob-menu a:hover { color: var(--purple) }
 .mob-menu .mob-cta { font-size: .9rem; font-weight: 600; padding: .7rem 2rem; background: var(--text); color: #0d0d14; border-radius: 8px; margin-top: .5rem }
 
+/* ── HERO ── */
 .hero {
   min-height: 100vh; padding-top: 64px;
   display: grid; grid-template-columns: 1fr 1fr;
@@ -77,13 +78,13 @@ nav {
 }
 .hero::before {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, #1a0a3d 0%, #2d1b69 30%, #4c1d95 55%, #753dcf 75%, #472287 100%);
-  opacity: .92;
+  background: linear-gradient(135deg, #080c14 0%, #0a1220 25%, #0d1a2e 55%, #102040 80%, #0e1c38 100%);
+  opacity: 1;
 }
 .hero-left {
   position: relative; z-index: 2;
   display: flex; flex-direction: column; justify-content: center;
-  padding: 5rem 3rem 5rem 3rem;
+  padding: 5rem 3rem 5rem 6rem;
 }
 .hero-tag {
   display: inline-flex; align-items: center; gap: .5rem;
@@ -127,41 +128,58 @@ nav {
 }
 .hero-social:hover { color: #fff; border-color: rgba(255,255,255,.5) }
 
+/* ── HERO RIGHT: full-bleed photo ── */
 .hero-right {
   position: relative; z-index: 2;
-  display: flex; align-items: flex-end; justify-content: center;
-  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
 }
 .avatar-wrap {
-  width: 400px; height: 100%; max-height: 100vh;
-  display: flex; align-items: flex-end; justify-content: center;
   position: relative;
+  width: 280px; height: 280px;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-photo {
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  object-fit: cover; object-position: center 10%;
+  border: 2px solid rgba(56,130,220,.35);
+  position: relative; z-index: 3;
+  filter: brightness(.95) contrast(1.05);
+}
+.ring {
+  position: absolute; border-radius: 50%; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.ring-1 {
+  width: 268px; height: 268px;
+  border: 1px solid rgba(56,130,220,.25);
+}
+.ring-2 { display: none }
+.ring-3 { display: none }
+.ring-1::after {
+  content: '';
+  position: absolute; top: -4px; left: 50%;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #3882dc;
+  box-shadow: 0 0 10px #3882dc;
+  transform: translateX(-50%);
+  animation: orbit-dot 18s linear infinite;
+}
+@keyframes orbit-dot {
+  from { transform: translateX(-50%) rotate(0deg) translateX(134px) rotate(0deg) }
+  to   { transform: translateX(-50%) rotate(360deg) translateX(134px) rotate(-360deg) }
 }
 .avatar-glow {
-  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 340px; height: 340px; border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(251,146,60,.3) 0%, transparent 70%);
-  filter: blur(40px);
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(56,130,220,.25) 0%, transparent 70%);
+  z-index: 2; pointer-events: none;
 }
-.avatar-circle {
-  position: relative; z-index: 1;
-  width: 280px; height: 280px; border-radius: 50%;
-  background: linear-gradient(135deg, rgba(167,139,250,.2), rgba(251,146,60,.2));
-  border: 2px solid rgba(255,255,255,.15);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 3rem;
-  overflow: hidden;
-}
-.avatar-circle img { width: 100%; height: 100%; object-fit: cover; border-radius: 50% }
-.avatar-monogram {
-  font-size: 5rem; font-weight: 800; color: rgba(255,255,255,.9);
-  letter-spacing: -.04em;
-}
-.avatar-hint {
-  position: absolute; bottom: 1.5rem; font-size: .68rem;
-  color: rgba(255,255,255,.35); font-family: var(--fm); letter-spacing: .06em;
-}
+@keyframes spin { from { transform: translate(-50%,-50%) rotate(0deg) } to { transform: translate(-50%,-50%) rotate(360deg) } }
 
+/* ── ABOUT ── */
 .page { max-width: 1100px; margin: 0 auto; padding: 0 2rem }
 section { padding: 5rem 0 }
 
@@ -219,6 +237,7 @@ section { padding: 5rem 0 }
 .stack-item { display: flex; align-items: center; gap: .35rem; font-size: .72rem; color: var(--text2) }
 .stack-dot2 { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0 }
 
+/* ── PROJECTS ── */
 .proj-list { display: flex; flex-direction: column; gap: 1.5rem }
 
 .proj-card {
@@ -264,62 +283,54 @@ section { padding: 5rem 0 }
 .proj-btn-code { background: var(--card2); color: var(--text2); border: 1px solid var(--border2) }
 .proj-btn-code:hover { color: var(--text); border-color: rgba(255,255,255,.25) }
 
-/* project preview panel — supports both screenshot images and mockup fallback */
+/* ── PROJECT PREVIEW PANEL ── */
 .proj-preview {
   background: var(--card2); border-left: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 4rem; position: relative; overflow: hidden;
+  display: flex; align-items: stretch; justify-content: center;
+  position: relative; overflow: hidden;
 }
 .proj-preview::before {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(135deg, var(--pg, rgba(124,58,237,.08)), var(--og, rgba(249,115,22,.05)));
+  pointer-events: none; z-index: 1;
 }
 
-/* Screenshot image style */
-.proj-screenshot {
-  position: relative;
-  z-index: 1;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: contain;   /* changed from cover */
-  object-position: center;
-
-  display: block;
-  transition: transform .4s ease;
-
-  background: #0b0b14;
-}
-.proj-card:hover .proj-screenshot { transform: scale(1.03) }
-
-/* overlay gradient on screenshot for blending */
+/* ── Screenshot wrap — fills the panel edge-to-edge, no black gaps ── */
 .screenshot-wrap {
   position: relative;
-  z-index: 1;
-
   width: 100%;
-  height: 520px;
-
+  height: 100%;
   overflow: hidden;
-  border-radius: 16px;
-
   display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #0b0b14;
+  align-items: stretch;
 }
+/* subtle left-edge fade so screenshot blends into card body */
 .screenshot-wrap::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(to right, rgba(19,18,31,.35) 0%, transparent 30%, transparent 70%, rgba(19,18,31,.2) 100%);
+  background:
+    linear-gradient(to right, rgba(19,18,31,.5) 0%, transparent 18%, transparent 82%, rgba(19,18,31,.25) 100%),
+    linear-gradient(to bottom, rgba(19,18,31,.2) 0%, transparent 15%);
   pointer-events: none;
+  z-index: 2;
 }
 
+.proj-screenshot {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform .45s ease;
+}
+.proj-card:hover .proj-screenshot { transform: scale(1.04) }
+
+/* Fallback mockup (no screenshot) */
 .preview-inner {
   position: relative; z-index: 1; text-align: center;
-  padding: 1.5rem;
+  padding: 1.5rem; margin: auto;
 }
 .preview-name {
   font-size: .72rem; font-family: var(--fm); color: var(--muted);
@@ -344,6 +355,7 @@ section { padding: 5rem 0 }
   background: rgba(74,222,128,.12); color: #4ade80; border: 1px solid rgba(74,222,128,.2);
 }
 
+/* ── SKILLS ── */
 .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem }
 .skill-group {
   background: var(--card); border: 1px solid var(--border);
@@ -362,6 +374,7 @@ section { padding: 5rem 0 }
 .sk-bar { width: 70px; height: 3px; background: rgba(255,255,255,.07); border-radius: 999px; overflow: hidden }
 .sk-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--purple2), var(--orange)) }
 
+/* ── EDUCATION ── */
 .edu-card {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 16px; padding: 2.25rem 2.5rem;
@@ -383,6 +396,7 @@ section { padding: 5rem 0 }
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 
+/* ── CONTACT ── */
 .contact-box {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 20px; padding: 4rem 3rem; text-align: center;
@@ -420,15 +434,19 @@ footer span { background: linear-gradient(90deg, var(--purple), var(--orange)); 
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease }
 .reveal.vis { opacity: 1; transform: translateY(0) }
 
+/* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .proj-card { grid-template-columns: 1fr; }
-  .proj-preview { min-height: 200px; border-left: none; border-top: 1px solid var(--border) }
+  .proj-preview { min-height: 220px; border-left: none; border-top: 1px solid var(--border) }
   .about-grid { grid-template-columns: 1fr }
   .bento-big { grid-row: span 1 }
   .skills-grid { grid-template-columns: 1fr 1fr }
 }
 
 @media (max-width: 768px) {
+  .hero-right { display: flex; padding: 2rem 0 3rem }
+.ring-2 { width: 300px; height: 300px }
+.ring-3 { display: none }
   nav { padding: 0 1.5rem }
   .nav-links, .nav-resume { display: none }
   .hamburger { display: flex }
@@ -471,9 +489,7 @@ footer span { background: linear-gradient(90deg, var(--purple), var(--orange)); 
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <a class="nav-resume" href="mailto:gyashi335@gmail.com">
-      ✉ Hire Me
-    </a>
+    <a class="nav-resume" href="mailto:gyashi335@gmail.com">✉ Hire Me</a>
     <button class="hamburger" id="ham">
       <span></span><span></span><span></span>
     </button>
@@ -514,15 +530,17 @@ footer span { background: linear-gradient(90deg, var(--purple), var(--orange)); 
       <a class="hero-social" href="mailto:gyashi335@gmail.com">Email</a>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="avatar-wrap">
-      <div class="avatar-glow"></div>
 
-<div class="avatar-circle">
-  <img src="yashi_photo.jpg" alt="Yashi Gupta" class="avatar-image">
-</div>
-    </div>
+  <!-- Full-bleed photo — no floating circle -->
+  <div class="hero-right">
+  <div class="avatar-wrap">
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring ring-3"></div>
+    <div class="avatar-glow"></div>
+    <img class="hero-photo" src="yashi_photo.jpg" alt="Yashi Gupta" />
   </div>
+</div>
 </section>
 
 <!-- ══ ABOUT ══ -->
@@ -645,15 +663,11 @@ footer span { background: linear-gradient(90deg, var(--purple), var(--orange)); 
           <a class="proj-btn-code" href="https://github.com/yashieeeeee/bhashalearn" target="_blank">⌥ Code</a>
         </div>
       </div>
-     <div class="proj-preview">
-      <div class="screenshot-wrap">
-       <img
-      class="proj-screenshot"
-      src="./Bhashalearn.jpg"
-      alt="BhashaLearn screenshot"
-        />
-  </div>
-</div>
+      <div class="proj-preview">
+        <div class="screenshot-wrap">
+          <img class="proj-screenshot" src="./Bhashalearn.jpg" alt="BhashaLearn screenshot" />
+        </div>
+      </div>
     </div>
 
     <!-- ScamDetector -->
@@ -675,10 +689,10 @@ footer span { background: linear-gradient(90deg, var(--purple), var(--orange)); 
         </div>
       </div>
       <div class="proj-preview">
-  <div class="screenshot-wrap">
-    <img class="proj-screenshot" src="scamdetector.jpg" alt="ScamDetector screenshot" />
-  </div>
-</div>
+        <div class="screenshot-wrap">
+          <img class="proj-screenshot" src="scamdetector.jpg" alt="ScamDetector screenshot" />
+        </div>
+      </div>
     </div>
 
     <!-- MoneyLens -->
@@ -700,10 +714,10 @@ footer span { background: linear-gradient(90deg, var(--purple), var(--orange)); 
         </div>
       </div>
       <div class="proj-preview">
-  <div class="screenshot-wrap">
-    <img class="proj-screenshot" src="moneylens.jpg" alt="MoneyLens screenshot" />
-  </div>
-</div>
+        <div class="screenshot-wrap">
+          <img class="proj-screenshot" src="moneylens.jpg" alt="MoneyLens screenshot" />
+        </div>
+      </div>
     </div>
 
     <!-- QuickCart -->
@@ -725,28 +739,10 @@ footer span { background: linear-gradient(90deg, var(--purple), var(--orange)); 
         </div>
       </div>
       <div class="proj-preview">
-        <!--
-          TO ADD SCREENSHOT: Replace the preview-inner div below with:
-          <div class="screenshot-wrap">
-            <img class="proj-screenshot" src="screenshots/quickcart.png" alt="QuickCart screenshot" />
-          </div>
-        -->
-        <div class="preview-inner">
-          <div class="preview-name">QuickCart</div>
-          <div class="preview-mockup">
-            <div class="mockup-bar">
-              <span style="background:#ff5f57"></span>
-              <span style="background:#febc2e"></span>
-              <span style="background:#28c840"></span>
-            </div>
-            <div class="mockup-line">Auth: <span class="hl3">Clerk</span> · Role-based ✓</div>
-            <div class="mockup-line" style="margin-top:.5rem">Cart: <span class="hl">3 items</span> · ₹2,499</div>
-            <div class="mockup-line">Payment: <span class="hl2">Stripe</span> · Secure ✓</div>
-            <div class="mockup-line">Orders: <span class="hl3">Inngest</span> async sync</div>
-            <div><span class="mockup-badge">🛒 Live on Vercel</span></div>
-          </div>
-        </div>
-      </div>
+  <div class="screenshot-wrap">
+    <img class="proj-screenshot" src="quickcart.jpg" alt="QuickCart screenshot" />
+  </div>
+</div>
     </div>
 
     <!-- SplitFast -->
@@ -768,10 +764,10 @@ footer span { background: linear-gradient(90deg, var(--purple), var(--orange)); 
         </div>
       </div>
       <div class="proj-preview">
-  <div class="screenshot-wrap">
-    <img class="proj-screenshot" src="Splitfast.jpg" alt="SplitFast screenshot" />
-  </div>
-</div>
+        <div class="screenshot-wrap">
+          <img class="proj-screenshot" src="Splitfast.jpg" alt="SplitFast screenshot" />
+        </div>
+      </div>
     </div>
 
     <!-- Dead or Alive -->
@@ -792,10 +788,10 @@ footer span { background: linear-gradient(90deg, var(--purple), var(--orange)); 
         </div>
       </div>
       <div class="proj-preview">
-  <div class="screenshot-wrap">
-    <img class="proj-screenshot" src="Splitfast.jpg" alt="dead-or-alive screenshot" />
-  </div>
-</div>
+        <div class="screenshot-wrap">
+          <img class="proj-screenshot" src="deadoralive.jpg" alt="Dead or Alive screenshot" />
+        </div>
+      </div>
     </div>
 
   </div>
